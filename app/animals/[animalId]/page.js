@@ -1,0 +1,49 @@
+import Image from 'next/image';
+import { animals } from '../../../database/animals';
+import { formatDate, getDaysUntilNextBirthDay } from '../../../util/dates';
+
+export async function generateMetadata(props) {
+  const params = await props.params;
+
+  const animal = animals.find(({ id }) => {
+    return id === Number(params.animalId);
+  });
+
+  return {
+    title: animal.firstName,
+    description: `${animal.firstName} the ${animal.type}, with their ${animal.accessory}`,
+  };
+}
+
+export default async function AnimalsPage(props) {
+  const params = await props.params;
+
+  const animal = animals.find(({ id }) => {
+    return id === Number(params.animalId);
+  });
+
+  const currentDate = new Date();
+
+  // Create new date object to avoid mutating the original birth date
+  const nextBirthDate = new Date(animal.birthDate);
+
+  const daysUntilNextBirthDay = getDaysUntilNextBirthDay(
+    currentDate,
+    nextBirthDate,
+  );
+
+  return (
+    <div>
+      <div>
+        <Image
+          src={`/animals/${animal.id}.png`}
+          width="300"
+          height="164"
+          alt={`${animal.firstName} the ${animal.type}, with their ${animal.accessory}`}
+        />
+      </div>
+      {animal.firstName}, born on {formatDate(animal.birthDate)} (
+      {daysUntilNextBirthDay} days until next birthday)
+    </div>
+  );
+}

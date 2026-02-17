@@ -1,0 +1,17 @@
+.header {
+  background: rgb(225, 255, 250);
+  color: rgb(10, 44, 38);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header > div:first-child {
+  display: flex;
+  gap: 16px;
+}
+
+.header > div:last-child {
+  display: flex;
+  gap: 5px;
+}

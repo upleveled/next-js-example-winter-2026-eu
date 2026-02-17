@@ -1,0 +1,31 @@
+{
+  "name": "next-js-example-winter-2026-eu",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "sass": "1.97.3",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.2",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "9.39.2",
+    "eslint-config-upleveled": "^9.4.6",
+    "prettier": "^3.8.1",
+    "stylelint": "^17.1.1",
+    "stylelint-config-upleveled": "^2.0.5",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.29.3"
+}
