@@ -1,4 +1,4 @@
-import './globals.css';
+import './globals.scss';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Header from './Header';
 

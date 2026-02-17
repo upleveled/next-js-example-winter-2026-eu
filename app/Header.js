@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './Header.module.scss';
-import RouterRefreshButton from './NewRandomNumberButton';
+import RouterRefreshButton from './RouterRefreshButton';
 
 export default function Header() {
   return (
