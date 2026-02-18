@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { animals } from '../../database/animals';
+import { getAnimals } from '../../database/animals';
 
 export default function AnimalsPage() {
+  const animals = getAnimals();
   return (
     <div>
       {animals.map((animal) => {

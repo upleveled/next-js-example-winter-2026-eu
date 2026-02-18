@@ -1,14 +1,12 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { animals } from '../../../database/animals';
+import { getAnimal } from '../../../database/animals';
 import { formatDate, getDaysUntilNextBirthDay } from '../../../util/dates';
 
 export async function generateMetadata(props) {
   const params = await props.params;
 
-  const animal = animals.find(({ id }) => {
-    return id === Number(params.animalId);
-  });
+  const animal = getAnimal(Number(params.animalId));
 
   if (!animal) {
     return {
@@ -25,9 +23,7 @@ export async function generateMetadata(props) {
 export default async function AnimalPage(props) {
   const params = await props.params;
 
-  const animal = animals.find(({ id }) => {
-    return id === Number(params.animalId);
-  });
+  const animal = getAnimal(Number(params.animalId));
 
   if (!animal) {
     notFound();

@@ -5,7 +5,7 @@
 // importing this file to break
 import 'server-only';
 
-export const animals = [
+const animals = [
   {
     id: 1,
     firstName: 'Dennis',
@@ -42,3 +42,11 @@ export const animals = [
     birthDate: new Date('2019-07-13'),
   },
 ];
+
+export function getAnimals() {
+  return animals;
+}
+
+export function getAnimal(id) {
+  return animals.find((animal) => animal.id === id);
+}
