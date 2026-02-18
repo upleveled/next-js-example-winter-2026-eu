@@ -1,15 +1,30 @@
 'use client';
-import { useEffect, useState } from 'react';
+
+import { useState } from 'react';
 import { updateComment } from './actions';
 
 export default function FruitCommentForm(props) {
   const [comment, setComment] = useState(props.fruitComment);
 
-  // Not recommended, ESLint error
-  // https://react.dev/learn/you-might-not-need-an-effect
-  useEffect(() => {
-    setComment(props.fruitComment);
-  }, [props.fruitComment]);
+  // // If you need to update the state from a changed
+  // // prop, 2 options below (not needed with current
+  // // code because we use a Controlled Component)
+  //
+  // // ❌ 1. Not recommended, ESLint error
+  // // https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect
+  // useEffect(() => {
+  //   setComment(props.fruitComment);
+  // }, [props.fruitComment]);
+  //
+  // // ✅ Better pattern, recommended in React docs
+  // // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  // const [previousFruitComment, setPreviousFruitComment] = useState(
+  //   props.fruitComment,
+  // );
+  // if (props.fruitComment !== previousFruitComment) {
+  //   setPreviousFruitComment(props.fruitComment);
+  //   setComment(props.fruitComment);
+  // }
 
   return (
     <form>

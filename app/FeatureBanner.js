@@ -1,39 +1,43 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { parseJson } from '../util/json';
 
-export default function FeatureBanner() {
-  const [opened, setOpened] = useState(true);
-  const [isBrowser, setIsBrowser] = useState(false);
+const localStorageKey = 'featureBannerIsHidden';
 
-  useEffect(() => {
-    setOpened(
-      parseJson(window.localStorage.getItem('featureBannerOpened')) ?? true,
-    );
-    setIsBrowser(true);
-  }, []);
+const emptySubscribe = () => () => {};
+
+export default function FeatureBanner() {
+  const isHiddenFromLocalStorage = useSyncExternalStore(
+    // No need to subscribe to changes, because we will update the state
+    emptySubscribe,
+    // On client, hide only if localStorage value is `true`
+    () => parseJson(window.localStorage.getItem(localStorageKey)) === true,
+    // On server, hide to avoid FOUC
+    () => true,
+  );
+
+  const [isHidden, setIsHidden] = useState(false);
 
   return (
-    opened && (
+    !isHiddenFromLocalStorage &&
+    !isHidden && (
       <div
         style={{
           backgroundColor: '#dd6666',
           padding: '20px',
           justifyContent: 'space-between',
-          display:
-            // If we're on the server, do not show the banner
-            isBrowser ? 'flex' : 'none',
+          display: 'flex',
         }}
       >
         <div>Learn about our new widget features</div>
         <button
           onClick={() => {
-            setOpened(false);
-            window.localStorage.setItem(
-              'featureBannerOpened',
-              JSON.stringify(false),
-            );
+            // Hide the banner immediately
+            setIsHidden(true);
+            // Save `featureBannerIsHidden=true` in localStorage
+            // to hide the banner on reload
+            window.localStorage.setItem(localStorageKey, JSON.stringify(true));
           }}
         >
           ×
