@@ -10,6 +10,7 @@ export default function Header() {
         <Link href="/animals">Animals</Link>
         <Link href="/about">About</Link>
         <Link href="/privacy-policy">Privacy Policy</Link>
+        <Link href="/cookies-lang-switcher">Switch Language</Link>
       </div>
       <div>
         <div>{Math.round(Math.random() * 100)}</div>

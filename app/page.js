@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import AntipatternDocumentCookie from './AntipatternDocumentCookie';
 import ClientComponentBrowserApis from './ClientComponentBrowserApis';
 import GenerateButton from './GenerateButton';
+import styles from './page.module.scss';
 
 export const metadata = {
-  // For the homepage, you need to include
-  // the entire title
+  // For the homepage, you need to include the entire title
   // - https://github.com/vercel/next.js/issues/46859
   title: 'Home page - Widgets Anonymous',
   description: 'This is our home page',
@@ -12,9 +13,16 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <div>
+    <div className={styles.content}>
+      <h2>Generate Button</h2>
       <GenerateButton />
+      <h2>Client Components - Browser APIs</h2>
       <ClientComponentBrowserApis />
+      <h2>
+        <code>document.cookie</code> - do not use
+      </h2>
+      <AntipatternDocumentCookie />
+      <h2>Images</h2>
       <div>Regular HTML &lt;img&gt; element</div>
       <img
         src="/widget.jpg"
