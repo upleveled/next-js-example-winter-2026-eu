@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { getCookie } from '../../../util/cookies';
 import { parseJson } from '../../../util/json';
 
-export async function updateComment(fruitId, commentValue) {
+export async function updateComment(fruitId, comment) {
   const fruitCommentsCookieValue = await getCookie('fruitComments');
 
   // 1. Parse the cookie value
@@ -13,19 +13,19 @@ export async function updateComment(fruitId, commentValue) {
     parseJson(fruitCommentsCookieValue) || [];
 
   // 2. Find the matching fruitComment
-  const existingFruitComment = fruitComments.find((comment) => {
-    return comment.fruitId === fruitId;
+  const existingFruitComment = fruitComments.find((fruitComment) => {
+    return fruitComment.fruitId === fruitId;
   });
 
   if (existingFruitComment) {
     // 3. Update the existing comment
-    existingFruitComment.comment = commentValue;
+    existingFruitComment.comment = comment;
   } else {
     // 4. If no existing comment, add a new comment
     fruitComments.push({
       id: fruitComments.length + 1,
       fruitId: fruitId,
-      comment: commentValue,
+      comment: comment,
     });
   }
 
