@@ -3,7 +3,7 @@ import postgres from 'postgres';
 
 // Adds all environment variables inside
 // .env file to `process.env`
-config({ example: '.env.example', allowEmptyValues: false });
+config();
 
 // Postgres.js will read from `process.env`
 const sql = postgres();
