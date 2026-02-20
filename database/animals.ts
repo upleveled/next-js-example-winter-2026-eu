@@ -75,7 +75,7 @@ export const getAnimalsInsecure = cache(async () => {
 });
 
 export const getAnimalInsecure = cache(async (animalId: number) => {
-  const animals = await sql<Animal[]>`
+  const [animal] = await sql<Animal[]>`
     SELECT
       *
     FROM
@@ -83,5 +83,5 @@ export const getAnimalInsecure = cache(async (animalId: number) => {
     WHERE
       id = ${animalId}
   `;
-  return animals[0];
+  return animal;
 });
