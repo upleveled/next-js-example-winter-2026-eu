@@ -124,11 +124,11 @@ export const getAnimalsWithFoodsJsonAggInsecure = cache(
         animals.birth_date,
         -- Return empty array instead of [null] if no food is found
         coalesce(
-          json_agg(foods.*) FILTER (
+          jsonb_agg(foods.*) FILTER (
             WHERE
               foods.id IS NOT NULL
           ),
-          '[]'
+          '[]'::jsonb
         ) AS foods
       FROM
         animals
