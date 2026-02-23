@@ -144,7 +144,6 @@ export const getAnimalsWithFoodsJsonAggInsecure = cache(
 );
 
 // "Create" in CRUD
-// createAnimalInsecure(animal)
 export const createAnimalInsecure = cache(
   async (
     // Omit = Ban .id property from animal
@@ -174,7 +173,6 @@ export const createAnimalInsecure = cache(
 );
 
 // "Update" in CRUD
-// updateAnimalInsecure(updatedAnimal)
 export const updateAnimalInsecure = cache(async (updatedAnimal: Animal) => {
   const [animal] = await sql<Animal[]>`
     UPDATE animals
@@ -192,7 +190,6 @@ export const updateAnimalInsecure = cache(async (updatedAnimal: Animal) => {
 });
 
 // "Delete" in CRUD
-// deleteAnimalInsecure(animalToDelete)
 export const deleteAnimalInsecure = cache(
   async (animalToDelete: Pick<Animal, 'id'>) => {
     const [animal] = await sql<Animal[]>`
