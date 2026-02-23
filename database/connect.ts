@@ -4,6 +4,7 @@
 import 'server-only';
 import { config } from 'dotenv-safe';
 import postgres, { type Sql } from 'postgres';
+import postgresJsConfig from '../ley.config.js';
 
 // Adds all environment variables inside
 // .env file to `process.env`
@@ -17,12 +18,7 @@ declare namespace globalThis {
 // https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
 function connectOneTimeToDatabase() {
   if (!('postgresSqlClient' in globalThis)) {
-    globalThis.postgresSqlClient = postgres({
-      transform: {
-        ...postgres.camel,
-        undefined: null,
-      },
-    });
+    globalThis.postgresSqlClient = postgres(postgresJsConfig);
   }
 
   return globalThis.postgresSqlClient;
