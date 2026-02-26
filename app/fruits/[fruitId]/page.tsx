@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { fruits } from '../../../database/fruits';
-import { parseJson } from '../../../util/json';
-import type { FruitComment } from './actions';
+import { parseJsonFruitComments } from '../../../util/json';
 import FruitCommentForm from './FruitCommentForm';
 
 export async function generateMetadata(props: PageProps<'/fruits/[fruitId]'>) {
@@ -58,8 +57,7 @@ export default async function FruitPage(props: PageProps<'/fruits/[fruitId]'>) {
     'fruitComments',
   )?.value;
 
-  const fruitComments =
-    (parseJson(fruitCommentsCookieValue) as FruitComment[] | undefined) || []; // If cookie value is undefined, use empty array
+  const fruitComments = parseJsonFruitComments(fruitCommentsCookieValue) || []; // If cookie value is undefined, use empty array
   console.log(fruitComments);
 
   const fruitComment = fruitComments.find(({ fruitId }) => {

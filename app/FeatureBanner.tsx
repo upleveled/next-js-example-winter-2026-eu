@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useSyncExternalStore } from 'react';
-import { parseJson } from '../util/json';
+import { parseJsonFeatureBanner } from '../util/json';
 
 const localStorageKey = 'featureBannerIsHidden';
 
@@ -13,7 +13,7 @@ export default function FeatureBanner() {
     emptySubscribe,
     // On client, hide only if localStorage value is `true`
     () =>
-      parseJson(window.localStorage.getItem(localStorageKey) || undefined) ===
+      parseJsonFeatureBanner(window.localStorage.getItem(localStorageKey)) ===
       true,
     // On server, hide to avoid FOUC
     () => true,

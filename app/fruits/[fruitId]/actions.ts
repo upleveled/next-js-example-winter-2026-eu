@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 import type { Fruit } from '../../../database/fruits';
 import { getCookie } from '../../../util/cookies';
-import { parseJson } from '../../../util/json';
+import { parseJsonFruitComments } from '../../../util/json';
 
 export type FruitComment = {
   id: number;
@@ -21,7 +21,7 @@ export async function updateComment(
   // 1. Parse the cookie value
   const fruitComments: FruitComment[] =
     // If cookie value is undefined, use empty array
-    (parseJson(fruitCommentsCookieValue) as FruitComment[] | undefined) || [];
+    parseJsonFruitComments(fruitCommentsCookieValue) || [];
 
   // 2. Find the matching fruitComment
   const existingFruitComment = fruitComments.find((fruitComment) => {

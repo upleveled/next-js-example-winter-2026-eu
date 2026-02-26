@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { fruits } from '../../database/fruits';
 import { getCookie } from '../../util/cookies';
-import { parseJson } from '../../util/json';
-import type { FruitComment } from './[fruitId]/actions';
+import { parseJsonFruitComments } from '../../util/json';
 
 export const metadata = {
   title: 'Fruits',
@@ -12,8 +11,7 @@ export const metadata = {
 export default async function FruitsPage() {
   const fruitCommentsCookieValue = await getCookie('fruitComments');
 
-  const fruitComments =
-    (parseJson(fruitCommentsCookieValue) as FruitComment[] | undefined) || []; // If cookie value is undefined, use empty array
+  const fruitComments = parseJsonFruitComments(fruitCommentsCookieValue) || []; // If cookie value is undefined, use empty array
 
   return (
     <div>
