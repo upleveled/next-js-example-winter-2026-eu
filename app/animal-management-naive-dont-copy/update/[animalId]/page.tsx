@@ -7,7 +7,20 @@ export const metadata = {
   title: 'Animal Management - Update animal',
   description: 'We offer various animals',
 };
-export default async function AnimalManagmentUpdateAnimalPage(props) {
+
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+  searchParams: Promise<{
+    firstName: string;
+    type: string;
+    accessory: string;
+    birthDate: string;
+  }>;
+};
+
+export default async function AnimalManagmentUpdateAnimalPage(props: Props) {
   const params = await props.params;
   const searchParams = await props.searchParams;
 
@@ -17,7 +30,7 @@ export default async function AnimalManagmentUpdateAnimalPage(props) {
     firstName: searchParams.firstName,
     type: searchParams.type,
     accessory: searchParams.accessory,
-    birthDate: searchParams.birthDate,
+    birthDate: new Date(searchParams.birthDate),
   });
   console.log(updatedAnimal);
 

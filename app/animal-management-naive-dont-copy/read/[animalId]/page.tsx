@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getAnimalInsecure } from '../../../../database/animals';
 import { formatDate, getDaysUntilNextBirthDay } from '../../../../util/dates';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: Props) {
   const params = await props.params;
 
   const animal = await getAnimalInsecure(Number(params.animalId));
@@ -20,7 +20,13 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalManagmentAnimalPage(props) {
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+};
+
+export default async function AnimalManagmentAnimalPage(props: Props) {
   const params = await props.params;
 
   const animal = await getAnimalInsecure(Number(params.animalId));

@@ -2,9 +2,10 @@ import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { fruits } from '../../../database/fruits';
 import { parseJson } from '../../../util/json';
+import type { FruitComment } from './actions';
 import FruitCommentForm from './FruitCommentForm';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: PageProps<'/fruits/[fruitId]'>) {
   const params = await props.params;
 
   const fruit = fruits.find(({ id }) => {
@@ -23,7 +24,12 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function FruitPage(props) {
+// // You can also use a type for this
+// type Props = {
+//   params: Promise<{ fruitId: string }>;
+// };
+
+export default async function FruitPage(props: PageProps<'/fruits/[fruitId]'>) {
   const params = await props.params;
 
   const fruit = fruits.find(({ id }) => {
@@ -52,7 +58,8 @@ export default async function FruitPage(props) {
     'fruitComments',
   )?.value;
 
-  const fruitComments = parseJson(fruitCommentsCookieValue) || []; // If cookie value is undefined, use empty array
+  const fruitComments =
+    (parseJson(fruitCommentsCookieValue) as FruitComment[] | undefined) || []; // If cookie value is undefined, use empty array
   console.log(fruitComments);
 
   const fruitComment = fruitComments.find(({ fruitId }) => {

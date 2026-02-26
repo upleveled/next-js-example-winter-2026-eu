@@ -25,7 +25,12 @@ export const metadata = {
   description: 'Widgets Anonymous page without description',
 };
 
-export default function RootLayout({ children }) {
+// // You can also type the props manually like this
+// type Props = {
+//   children: ReactNode;
+// };
+
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

@@ -5,7 +5,13 @@
 // importing this file to break
 import 'server-only';
 
-export const fruits = [
+export type Fruit = {
+  id: number;
+  name: string;
+  emoji: string;
+};
+
+export const fruits: Fruit[] = [
   { id: 1, name: 'Apple', emoji: '🍎' },
   { id: 2, name: 'Banana', emoji: '🍌' },
   { id: 3, name: 'Orange', emoji: '🍊' },

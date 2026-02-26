@@ -20,7 +20,7 @@ export default async function CookiesLangSwitcherPage() {
 
   return (
     <div>
-      <h1>Greeting: {greetings[langCookieValue]}</h1>
+      <h1>Greeting: {greetings[langCookieValue as keyof typeof greetings]}</h1>
       <h2>All Cookies</h2>
       {JSON.stringify(allCookies)}
       <h2>lang cookie value</h2>

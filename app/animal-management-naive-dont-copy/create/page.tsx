@@ -7,14 +7,24 @@ export const metadata = {
   title: 'Animal Management - Create animal',
   description: 'We offer various animals',
 };
-export default async function AnimalManagmentCreateAnimalPage(props) {
+
+type Props = {
+  searchParams: Promise<{
+    firstName: string;
+    type: string;
+    accessory: string;
+    birthDate: string;
+  }>;
+};
+
+export default async function AnimalManagmentCreateAnimalPage(props: Props) {
   const searchParams = await props.searchParams;
 
   const createdAnimal = await createAnimalInsecure({
     firstName: searchParams.firstName,
     type: searchParams.type,
     accessory: searchParams.accessory,
-    birthDate: searchParams.birthDate,
+    birthDate: new Date(searchParams.birthDate),
   });
   console.log(createdAnimal);
 

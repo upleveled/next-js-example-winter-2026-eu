@@ -15,7 +15,8 @@ export default function AntipatternDocumentCookie() {
       ?.split('=')[1];
 
     console.log('langCookieValue', langCookieValue);
-    setLanguage(langCookieValue);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLanguage(langCookieValue || '');
   }, []);
 
   return (

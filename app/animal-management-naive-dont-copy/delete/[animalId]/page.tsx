@@ -7,7 +7,14 @@ export const metadata = {
   title: 'Animal Management - Delete animal',
   description: 'We offer various animals',
 };
-export default async function AnimalManagmentDeleteAnimalPage(props) {
+
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+};
+
+export default async function AnimalManagmentDeleteAnimalPage(props: Props) {
   const params = await props.params;
 
   const deletedAnimal = await deleteAnimalInsecure({

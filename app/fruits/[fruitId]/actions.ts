@@ -1,16 +1,27 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import type { Fruit } from '../../../database/fruits';
 import { getCookie } from '../../../util/cookies';
 import { parseJson } from '../../../util/json';
 
-export async function updateComment(fruitId, comment) {
+export type FruitComment = {
+  id: number;
+  fruitId: Fruit['id'];
+  comment: string;
+};
+
+export async function updateComment(
+  fruitId: Fruit['id'],
+  comment: string,
+  // comment: FruitComment['comment'],
+) {
   const fruitCommentsCookieValue = await getCookie('fruitComments');
 
   // 1. Parse the cookie value
-  const fruitComments =
+  const fruitComments: FruitComment[] =
     // If cookie value is undefined, use empty array
-    parseJson(fruitCommentsCookieValue) || [];
+    (parseJson(fruitCommentsCookieValue) as FruitComment[] | undefined) || [];
 
   // 2. Find the matching fruitComment
   const existingFruitComment = fruitComments.find((fruitComment) => {

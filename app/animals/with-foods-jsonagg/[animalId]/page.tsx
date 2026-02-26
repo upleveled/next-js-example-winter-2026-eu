@@ -3,8 +3,9 @@ import {
   getAnimalInsecure,
   getAnimalsWithFoodsJsonAggInsecure,
 } from '../../../../database/animals';
+import notFound from '../../../not-found';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: Props) {
   const params = await props.params;
 
   const animal = await getAnimalInsecure(Number(params.animalId));
@@ -21,7 +22,11 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalPage(props) {
+type Props = {
+  params: Promise<{ animalId: string }>;
+};
+
+export default async function AnimalPage(props: Props) {
   const params = await props.params;
 
   const animal = await getAnimalsWithFoodsJsonAggInsecure(
@@ -29,6 +34,11 @@ export default async function AnimalPage(props) {
   );
 
   console.log(animal);
+
+  if (!animal) {
+    notFound();
+    return;
+  }
 
   return (
     <div>

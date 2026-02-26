@@ -12,10 +12,17 @@ export default function FeatureBanner() {
     // No need to subscribe to changes, because we will update the state
     emptySubscribe,
     // On client, hide only if localStorage value is `true`
-    () => parseJson(window.localStorage.getItem(localStorageKey)) === true,
+    () =>
+      parseJson(window.localStorage.getItem(localStorageKey) || undefined) ===
+      true,
     // On server, hide to avoid FOUC
     () => true,
   );
+
+  // // If your state variable has 2 possible types,
+  // // you can pass in the possible types in angle
+  // // brackets
+  // const [isHidden, setIsHidden] = useState<boolean | undefined>();
 
   const [isHidden, setIsHidden] = useState(false);
 

@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import {
+  type AnimalWithFoods,
   getAnimalInsecure,
   getAnimalsWithFoodsInsecure,
 } from '../../../../database/animals';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: Props) {
   const params = await props.params;
 
   const animal = await getAnimalInsecure(Number(params.animalId));
@@ -22,7 +23,11 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function AnimalPage(props) {
+type Props = {
+  params: Promise<{ animalId: string }>;
+};
+
+export default async function AnimalPage(props: Props) {
   const params = await props.params;
 
   const animalWithFoods = await getAnimalsWithFoodsInsecure(
@@ -31,9 +36,16 @@ export default async function AnimalPage(props) {
 
   console.log(animalWithFoods);
 
-  const animal = animalWithFoods[0];
+  const animal = animalWithFoods[0] as
+    | (AnimalWithFoods & {
+        foods: {
+          id: number | null;
+          name: string | null;
+        }[];
+      })
+    | undefined;
 
-  if (!animalWithFoods || !animal) {
+  if (animalWithFoods.length < 1 || !animal) {
     notFound();
   }
 

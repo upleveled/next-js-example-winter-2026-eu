@@ -80,7 +80,7 @@ export const getAnimalInsecure = cache(async (animalId: number) => {
   return animal;
 });
 
-type AnimalWithFoods = Animal & {
+export type AnimalWithFoods = Animal & {
   foodId: number | null;
   foodName: string | null;
 };
