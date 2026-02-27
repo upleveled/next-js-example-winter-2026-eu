@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
 import {
-  type AnimalWithFoods,
   getAnimalInsecure,
   getAnimalsWithFoodsInsecure,
 } from '../../../../database/animals';
+import { collapseAnimalWithFoods } from '../../../../util/animalWithFoods';
 
 export async function generateMetadata(props: Props) {
   const params = await props.params;
@@ -36,30 +35,7 @@ export default async function AnimalPage(props: Props) {
 
   console.log(animalWithFoods);
 
-  const animal = animalWithFoods[0] as
-    | (AnimalWithFoods & {
-        foods: {
-          id: number | null;
-          name: string | null;
-        }[];
-      })
-    | undefined;
-
-  if (animalWithFoods.length < 1 || !animal) {
-    notFound();
-  }
-
-  animal.foods = animalWithFoods
-    .map(({ foodId, foodName }) => {
-      // Return null if food info not present
-      if (!foodId) return null;
-      return {
-        id: foodId,
-        name: foodName,
-      };
-    })
-    // Remove any array items that don't contain food information
-    .filter((food) => food !== null);
+  const animal = collapseAnimalWithFoods(animalWithFoods);
 
   return (
     <div>
