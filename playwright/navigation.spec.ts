@@ -8,7 +8,7 @@ test('allows navigation to home page', async ({ page }) => {
   ).toBeVisible();
 
   // Partial match of text
-  await expect(page.locator('h1')).toContainText('Widgets');
+  await expect(page.locator('h1')).toContainText('Widgetssssss');
   // More strict, will match text exactly
   await expect(page.locator('h1')).toHaveText('Widgets Anonymous');
 });
