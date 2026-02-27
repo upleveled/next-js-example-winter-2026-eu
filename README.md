@@ -7,6 +7,9 @@ Example project demonstrating features of Next.js, Postgres.js, including how to
 ## Technologies
 
 - Next.js (App Router, React Server Components)
+- Postgres.js
+- Jest
+- Playwright
 
 ## Database Setup
 
@@ -76,4 +79,20 @@ psql -U <user name> <database name>
 
 ```bash
 sudo -u <user name> psql -U <user name> <database name>
+```
+
+## Tests
+
+### Jest
+
+```bash
+pnpm jest
+```
+
+### Playwright
+
+```bash
+pnpm playwright test --ui
+# Or, for headless mode:
+pnpm playwright test
 ```
