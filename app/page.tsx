@@ -14,6 +14,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <div className={styles.content}>
+      <h1>Widgets Anonymous</h1>
       <h2>Generate Button</h2>
       <GenerateButton />
       <h2>Client Components - Browser APIs</h2>
