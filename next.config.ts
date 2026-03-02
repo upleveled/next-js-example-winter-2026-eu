@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   images: {
     // Disable image optimization on Fly.io to avoid crashes from 256MB memory limit
-    unoptimized: !!process.env.FLY_APP_NAME,
+    unoptimized: !process.env.VERCEL,
   },
   typescript: {
     // Ignore TypeScript errors because we already check during CI
