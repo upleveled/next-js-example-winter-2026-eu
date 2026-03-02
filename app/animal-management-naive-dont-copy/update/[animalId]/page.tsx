@@ -52,7 +52,7 @@ export default async function AnimalManagmentUpdateAnimalPage(props: Props) {
     <div>
       <div>
         <Image
-          src={`/animals/${updatedAnimal.id}.png`}
+          src={`/animals/${updatedAnimal.id}.avif`}
           width="300"
           height="164"
           alt={`${updatedAnimal.firstName} the ${updatedAnimal.type}, with their ${updatedAnimal.accessory}`}

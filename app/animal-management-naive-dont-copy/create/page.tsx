@@ -46,7 +46,7 @@ export default async function AnimalManagmentCreateAnimalPage(props: Props) {
     <div>
       <div>
         <Image
-          src={`/animals/${createdAnimal.id}.png`}
+          src={`/animals/${createdAnimal.id}.avif`}
           width="300"
           height="164"
           alt={`${createdAnimal.firstName} the ${createdAnimal.type}, with their ${createdAnimal.accessory}`}

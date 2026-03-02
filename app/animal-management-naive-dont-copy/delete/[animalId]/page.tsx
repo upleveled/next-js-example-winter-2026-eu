@@ -40,7 +40,7 @@ export default async function AnimalManagmentDeleteAnimalPage(props: Props) {
     <div>
       <div>
         <Image
-          src={`/animals/${deletedAnimal.id}.png`}
+          src={`/animals/${deletedAnimal.id}.avif`}
           width="300"
           height="164"
           alt={`${deletedAnimal.firstName} the ${deletedAnimal.type}, with their ${deletedAnimal.accessory}`}
