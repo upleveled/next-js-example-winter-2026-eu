@@ -1,0 +1,16 @@
+app = "next-js-example-winter-2026-eu"
+primary_region = "ams"
+
+[mounts]
+  source = "postgres"
+  destination = "/postgres-volume"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Suspend VM after a few minutes of inactivity - wake it up by visiting the deployed website in a browser
+  auto_stop_machines = "suspend"
+  auto_start_machines = true

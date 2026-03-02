@@ -1,11 +1,11 @@
-import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 import { cache } from 'react';
 import type { Animal } from './migrations/00000-createTableAnimals';
+import { setEnvironmentVariables } from './util/config';
 
 // Adds all environment variables inside
 // .env file to `process.env`
-config();
+setEnvironmentVariables();
 
 // Postgres.js will read from `process.env`
 const sql = postgres();

@@ -2,13 +2,13 @@
 // to prevent using this file in a Client
 // Component
 import 'server-only';
-import { config } from 'dotenv-safe';
 import postgres, { type Sql } from 'postgres';
 import postgresJsConfig from '../ley.config.js';
+import { setEnvironmentVariables } from '../util/config';
 
 // Adds all environment variables inside
 // .env file to `process.env`
-config();
+setEnvironmentVariables();
 
 declare namespace globalThis {
   let postgresSqlClient: Sql;

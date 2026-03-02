@@ -10,6 +10,7 @@ Example project demonstrating features of Next.js, Postgres.js, including how to
 - Postgres.js
 - Jest
 - Playwright
+- Fly.io
 
 ## Database Setup
 
