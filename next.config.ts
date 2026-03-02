@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     unoptimized: !process.env.VERCEL,
   },
   typescript: {
-    // Ignore TypeScript errors because we already check during CI
+    // Ignore TypeScript errors because types already checked during CI
     ignoreBuildErrors: true,
   },
 };
