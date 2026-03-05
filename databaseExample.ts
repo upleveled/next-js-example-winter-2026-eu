@@ -93,7 +93,7 @@ const sql = postgres();
 
 // "Delete" in CRUD
 // deleteAnimalInsecure(animalToDelete)
-export const deleteAnimalInsecure = cache(
+const deleteAnimalInsecure = cache(
   async (animalToDelete: Pick<Animal, 'id'>) => {
     const [animal] = await sql<Animal[]>`
       DELETE FROM animals

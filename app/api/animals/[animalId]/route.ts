@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
+  deleteAnimalInsecure,
   getAnimalInsecure,
   updateAnimalInsecure,
 } from '../../../../database/animals';
-import { deleteAnimalInsecure } from '../../../../databaseExample';
 import {
   type Animal,
   animalSchema,
