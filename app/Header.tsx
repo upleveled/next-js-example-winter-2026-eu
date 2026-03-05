@@ -14,6 +14,7 @@ export default function Header() {
         <Link href="/cookies-lang-switcher">Switch Language</Link>
       </div>
       <div>
+        <Link href="/animals/dashboard">Dashboard</Link>
         {/* eslint-disable-next-line react-hooks/purity */}
         <div>{Math.round(Math.random() * 100)}</div>
         <RouterRefreshButton />

@@ -3,15 +3,18 @@
   color: rgb(10, 44, 38);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
 }
 
 .header > div:first-child {
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
 .header > div:last-child {
   display: flex;
+  align-items: center;
   gap: 5px;
 }

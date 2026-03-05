@@ -1,4 +1,14 @@
 import type { Sql } from 'postgres';
+import z from 'zod';
+
+export const animalSchema = z.object({
+  animal: z.object({
+    firstName: z.string().max(30),
+    type: z.string().max(30),
+    accessory: z.string().max(45).nullable(),
+    birthDate: z.coerce.date(),
+  }),
+});
 
 export type Animal = {
   id: number;
