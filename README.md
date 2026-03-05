@@ -4,7 +4,8 @@ Example project demonstrating features of Next.js, Postgres.js, including how to
 
 <img src="screenshot.avif" alt="" />
 
-<img width="1434" height="661" alt="Screenshot 2026-03-05 at 12 59 44" src="https://github.com/user-attachments/assets/82980eec-aa23-4b3c-9358-26a837eda333" />
+<img width="1435" height="749" alt="Screenshot 2026-03-05 at 14 00 56" src="https://github.com/user-attachments/assets/de4cc9c4-57bb-4cb3-9214-3ac653371799" />
+
 
 ## Technologies
 
