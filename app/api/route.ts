@@ -5,7 +5,7 @@ type RootResponseBodyGet = {
   books: string;
 };
 
-export async function GET(): Promise<NextResponse<RootResponseBodyGet>> {
+export function GET(): NextResponse<RootResponseBodyGet> {
   return NextResponse.json({
     animals: '/api/animals',
     books: '/api/books',
