@@ -11,11 +11,12 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 
 ## Technologies
 
-- Next.js (App Router, React Server Components)
-- Postgres.js
-- Jest
-- Playwright
-- Fly.io
+- [Next.js](https://nextjs.org/) (App Router, React Server Components)
+- [Postgres.js](https://www.npmjs.com/package/postgres)
+- [Ley](https://www.npmjs.com/package/@upleveled/ley)
+- [Jest](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)
+- [Fly.io](https://fly.io/)
 
 ## Database Setup
 
