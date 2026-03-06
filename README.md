@@ -2,6 +2,8 @@
 
 Example project demonstrating features of Next.js, Postgres.js, including how to build REST APIs.
 
+This example is part of the curriculum for the [UpLeveled Full Stack Web Development Program](https://upleveled.io/full-stack-web-development-program).
+
 <img src="screenshot.avif" alt="" />
 
 <img width="1435" height="749" alt="Screenshot 2026-03-05 at 14 00 56" src="https://github.com/user-attachments/assets/de4cc9c4-57bb-4cb3-9214-3ac653371799" />
