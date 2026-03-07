@@ -1,4 +1,4 @@
-# UpLeveled Next.js example - Winter 2026
+# UpLeveled Next.js example
 
 Example project demonstrating features of Next.js, Postgres.js, including how to build REST APIs.
 
