@@ -8,7 +8,6 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 
 <img width="1435" height="749" alt="Screenshot 2026-03-05 at 14 00 56" src="https://github.com/user-attachments/assets/de4cc9c4-57bb-4cb3-9214-3ac653371799" />
 
-
 ## Technologies
 
 - [Next.js](https://nextjs.org/) (App Router, React Server Components)
