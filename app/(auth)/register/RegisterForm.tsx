@@ -24,10 +24,6 @@ export default function RegisterForm(props: Props) {
 
         const response = await fetch('/api/register', {
           method: 'POST',
-          // We don't need this because Next.js also reads text/plain content type
-          // headers: {
-          //   'Content-Type': 'application/json',
-          // },
           body: JSON.stringify({
             user: {
               username: username,
