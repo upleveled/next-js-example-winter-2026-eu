@@ -102,3 +102,18 @@ pnpm playwright test --ui
 # Or, for headless mode:
 pnpm playwright test
 ```
+
+## Authentication and Authorization
+
+Authentication includes user registration, login, and logout using username and password credentials:
+
+1. Authentication is session-based using an HTTP-only `sessionToken` cookie
+2. Sessions expire after 24 hours
+3. Unauthenticated users are redirected to the login page when visiting protected pages
+4. After login, users can be redirected back to the page they originally requested
+
+Authorization is enforced for user-specific content and actions:
+
+5. All authenticated users can access the animals dashboard and perform CRUD operations on animals (no additional authorization checks)
+6. Notes are private and can only be viewed by the user who created them
+7. If a user tries to access another user's note, the page shows an access denied message instead of the note content
