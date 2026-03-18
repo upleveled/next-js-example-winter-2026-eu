@@ -38,7 +38,10 @@ export const getUserWithPasswordHashInsecure = cache(
 );
 
 export const createUserInsecure = cache(
-  async (username: User['username'], passwordHash: string) => {
+  async (
+    username: User['username'],
+    passwordHash: UserWithPasswordHash['passwordHash'],
+  ) => {
     const [user] = await sql<User[]>`
       INSERT INTO
         users (username, password_hash)
