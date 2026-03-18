@@ -19,6 +19,7 @@ export async function GET(): Promise<NextResponse<AnimalsResponseBodyGet>> {
   const animals = await getAnimalsInsecure();
   return NextResponse.json({ animals: animals });
 }
+
 export type AnimalsResponseBodyPost =
   | {
       animal: Animal;
