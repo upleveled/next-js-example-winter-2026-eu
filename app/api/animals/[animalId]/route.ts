@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  deleteAnimalInsecure,
-  getAnimalInsecure,
-  updateAnimalInsecure,
+  deleteAnimal,
+  getAnimal,
+  updateAnimal,
 } from '../../../../database/animals';
 import {
   type Animal,
   animalSchema,
 } from '../../../../migrations/00000-createTableAnimals';
+import { getCookie } from '../../../../util/cookies';
 
 export type AnimalResponseBodyGet =
   | {
@@ -24,8 +25,11 @@ export async function GET(
   request: NextRequest,
   context: RouteContext<'/api/animals/[animalId]'>,
 ): Promise<NextResponse<AnimalResponseBodyGet>> {
+  const sessionToken = await getCookie('sessionToken');
+
   const animalId = (await context.params).animalId;
-  const animal = await getAnimalInsecure(Number(animalId));
+  const animal =
+    !!sessionToken && (await getAnimal(sessionToken, Number(animalId)));
 
   if (!animal) {
     return NextResponse.json(
@@ -52,6 +56,8 @@ export async function PUT(
   request: NextRequest,
   context: RouteContext<'/api/animals/[animalId]'>,
 ): Promise<NextResponse<AnimalResponseBodyPut>> {
+  const sessionToken = await getCookie('sessionToken');
+
   // Unsafe data from user input
   const requestBody = await request.json();
 
@@ -73,7 +79,7 @@ export async function PUT(
 
   // Optional: first get the animal
   const animalId = (await context.params).animalId;
-  if (!(await getAnimalInsecure(Number(animalId)))) {
+  if (sessionToken && !(await getAnimal(sessionToken, Number(animalId)))) {
     return NextResponse.json(
       {
         error: 'Cannot find animal',
@@ -82,10 +88,12 @@ export async function PUT(
     );
   }
 
-  const animal = await updateAnimalInsecure({
-    id: Number(animalId),
-    ...result.data.animal,
-  });
+  const animal =
+    !!sessionToken &&
+    (await updateAnimal(sessionToken, {
+      id: Number(animalId),
+      ...result.data.animal,
+    }));
 
   if (!animal) {
     return NextResponse.json(
@@ -112,9 +120,11 @@ export async function DELETE(
   request: NextRequest,
   context: RouteContext<'/api/animals/[animalId]'>,
 ): Promise<NextResponse<AnimalResponseBodyDelete>> {
+  const sessionToken = await getCookie('sessionToken');
+
   // Optional: first get the animal
   const animalId = (await context.params).animalId;
-  if (!(await getAnimalInsecure(Number(animalId)))) {
+  if (sessionToken && !(await getAnimal(sessionToken, Number(animalId)))) {
     return NextResponse.json(
       {
         error: 'Cannot find animal',
@@ -123,9 +133,11 @@ export async function DELETE(
     );
   }
 
-  const animal = await deleteAnimalInsecure({
-    id: Number(animalId),
-  });
+  const animal =
+    !!sessionToken &&
+    (await deleteAnimal(sessionToken, {
+      id: Number(animalId),
+    }));
 
   if (!animal) {
     return NextResponse.json(

@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  createAnimalInsecure,
-  getAnimalsInsecure,
-} from '../../../database/animals';
+import { createAnimal, getAnimals } from '../../../database/animals';
 import {
   type Animal,
   animalSchema,
 } from '../../../migrations/00000-createTableAnimals';
+import { getCookie } from '../../../util/cookies';
 
 export type AnimalsResponseBodyGet = {
   animals: Animal[];
@@ -16,7 +14,8 @@ export type AnimalsResponseBodyGet = {
 //
 // GET (Read in CRUD)
 export async function GET(): Promise<NextResponse<AnimalsResponseBodyGet>> {
-  const animals = await getAnimalsInsecure();
+  const sessionToken = await getCookie('sessionToken');
+  const animals = !!sessionToken ? await getAnimals(sessionToken) : [];
   return NextResponse.json({ animals: animals });
 }
 
@@ -32,6 +31,8 @@ export type AnimalsResponseBodyPost =
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<AnimalsResponseBodyPost>> {
+  const sessionToken = await getCookie('sessionToken');
+
   // Unsafe data from user input
   const requestBody = await request.json();
 
@@ -52,7 +53,8 @@ export async function POST(
   }
 
   // 3. Use the validated data
-  const newAnimal = await createAnimalInsecure(result.data.animal);
+  const newAnimal =
+    !!sessionToken && (await createAnimal(sessionToken, result.data.animal));
 
   if (!newAnimal) {
     return NextResponse.json(

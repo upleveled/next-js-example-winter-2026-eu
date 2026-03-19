@@ -45,6 +45,9 @@ export default function RegisterForm(props: Props) {
           getSafeReturnToPath(props.returnTo) ||
             `/profile/${responseBody.user.username}`,
         );
+
+        // Immediately show username in header
+        router.refresh();
       }}
     >
       <label>

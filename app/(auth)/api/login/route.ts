@@ -1,10 +1,14 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { createSessionInsecure } from '../../../../database/sessions';
 import { getUserWithPasswordHashInsecure } from '../../../../database/users';
 import {
   type User,
   userSchemaLogin,
 } from '../../../../migrations/00006-createTableUsers';
+import { secureCookieOptions } from '../../../../util/cookies';
 import { getCombinedErrorMessage } from '../../../../util/validation';
 
 export type LoginResponseBodyPost =
@@ -73,6 +77,33 @@ export async function POST(
       },
     );
   }
+
+  // 5. Generate session token
+  const sessionToken = crypto.randomBytes(100).toString('base64');
+
+  // 6. Insert session into `sessions` table
+  const session = await createSessionInsecure(
+    sessionToken,
+    userWithPasswordHash.id,
+  );
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        error: 'Session creation failed',
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+
+  // 7. Create secure cookie via response header
+  (await cookies()).set({
+    name: 'sessionToken',
+    value: session.token,
+    ...secureCookieOptions,
+  });
 
   return NextResponse.json({
     user: {

@@ -1,4 +1,7 @@
-import { getAnimalsInsecure } from '../../../database/animals';
+import { redirect } from 'next/navigation';
+import { getAnimals } from '../../../database/animals';
+import { getValidSession } from '../../../database/sessions';
+import { getCookie } from '../../../util/cookies';
 import AnimalsForm from './AnimalsForm';
 
 export const metadata = {
@@ -7,7 +10,19 @@ export const metadata = {
 };
 
 export default async function AnimalsPage() {
-  const animals = await getAnimalsInsecure();
+  // Dashboard authorization steps in page
+  // 1. Get session token from cookie
+  const sessionToken = await getCookie('sessionToken');
+
+  // 2. Check if session token is valid
+  const session = !!sessionToken && (await getValidSession(sessionToken));
+
+  // 3. If sessionToken is invalid, redirect to login page
+  if (!session) {
+    redirect('/login?returnTo=/animals/dashboard');
+  }
+
+  const animals = await getAnimals(session.token);
 
   return <AnimalsForm animals={animals} />;
 }
