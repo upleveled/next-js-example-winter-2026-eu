@@ -21,6 +21,18 @@ export const getValidSession = cache(async (sessionToken: Session['token']) => {
   return session;
 });
 
+export const deleteSession = cache(async (sessionToken: Session['token']) => {
+  const [session] = await sql<Session[]>`
+    DELETE FROM sessions
+    WHERE
+      token = ${sessionToken}
+    RETURNING
+      sessions.*
+  `;
+
+  return session;
+});
+
 // Insecure database query functions below, without
 // verification of session token
 
@@ -48,15 +60,3 @@ export const createSessionInsecure = cache(
     return session;
   },
 );
-
-export const deleteSession = cache(async (sessionToken: Session['token']) => {
-  const [session] = await sql<Session[]>`
-    DELETE FROM sessions
-    WHERE
-      token = ${sessionToken}
-    RETURNING
-      sessions.*
-  `;
-
-  return session;
-});

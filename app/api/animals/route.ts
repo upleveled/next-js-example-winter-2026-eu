@@ -31,8 +31,6 @@ export type AnimalsResponseBodyPost =
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<AnimalsResponseBodyPost>> {
-  const sessionToken = await getCookie('sessionToken');
-
   // Unsafe data from user input
   const requestBody = await request.json();
 
@@ -52,6 +50,7 @@ export async function POST(
     );
   }
 
+  const sessionToken = await getCookie('sessionToken');
   // 3. Use the validated data
   const newAnimal =
     !!sessionToken && (await createAnimal(sessionToken, result.data.animal));

@@ -56,8 +56,6 @@ export async function PUT(
   request: NextRequest,
   context: RouteContext<'/api/animals/[animalId]'>,
 ): Promise<NextResponse<AnimalResponseBodyPut>> {
-  const sessionToken = await getCookie('sessionToken');
-
   // Unsafe data from user input
   const requestBody = await request.json();
 
@@ -76,6 +74,8 @@ export async function PUT(
       { status: 400 },
     );
   }
+
+  const sessionToken = await getCookie('sessionToken');
 
   // Optional: first get the animal
   const animalId = (await context.params).animalId;
