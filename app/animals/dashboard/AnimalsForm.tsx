@@ -143,9 +143,6 @@ export default function AnimalsForm(props: Props) {
                         birthDate,
                       },
                     }),
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
                   });
 
                   setErrorMessage('');
@@ -174,9 +171,6 @@ export default function AnimalsForm(props: Props) {
                         birthDate,
                       },
                     }),
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
                   });
 
                   setErrorMessage('');
