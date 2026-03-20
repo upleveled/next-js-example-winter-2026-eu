@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
+  experimental: {
+    authInterrupts: true,
+  },
   images: {
     // Disable image optimization on Fly.io to avoid crashes from 256MB memory limit
     unoptimized: !process.env.VERCEL,

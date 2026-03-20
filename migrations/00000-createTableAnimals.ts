@@ -3,7 +3,8 @@ import z from 'zod';
 
 export const animalSchema = z.object({
   animal: z.object({
-    firstName: z.string().max(30),
+    // Security: Do not include id, because it cannot be chosen by the user
+    firstName: z.string().max(30, 'First name must be maximum 30 characters'),
     type: z.string().max(30),
     accessory: z.string().max(45).nullable(),
     birthDate: z.coerce.date(),

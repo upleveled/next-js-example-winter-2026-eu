@@ -8,6 +8,10 @@ This example is part of the curriculum for the [UpLeveled Full Stack Web Develop
 
 <img width="1435" height="749" alt="Screenshot 2026-03-05 at 14 00 56" src="https://github.com/user-attachments/assets/de4cc9c4-57bb-4cb3-9214-3ac653371799" />
 
+[![Screenshot of DrawSQL schema](./database-schema.avif)](https://drawsql.app/teams/upleveled-28/diagrams/next-js-example-winter-2026-eu)
+
+[DrawSQL Schema](https://drawsql.app/teams/upleveled-28/diagrams/next-js-example-winter-2026-eu)
+
 ## Technologies
 
 - [Next.js](https://nextjs.org/) (App Router, React Server Components)
