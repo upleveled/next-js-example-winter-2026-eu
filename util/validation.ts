@@ -1,8 +1,7 @@
 import type { Route } from 'next';
 import { z } from 'zod';
-import type { $ZodIssue } from 'zod/v4/core';
 
-export function getCombinedErrorMessage(issues: $ZodIssue[]) {
+export function getCombinedErrorMessage(issues: z.core.$ZodIssue[]) {
   return issues.map((issue) => issue.message).join(', ');
 }
 
