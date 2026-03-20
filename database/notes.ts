@@ -12,7 +12,8 @@ export const getNotes = cache(async (sessionToken: Session['token']) => {
       notes.*
     FROM
       notes
-      -- You don't need to join on this, because
+      -- Skip joining with users, because we don't
+      -- need information from the users table and
       -- the notes table already has user_id
       -- INNER JOIN users ON (notes.user_id = users.id)
       INNER JOIN sessions ON (
