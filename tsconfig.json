@@ -15,7 +15,6 @@
     "**/*.jsx",
     "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts",
-    "database/fruits.jt"
+    ".next/types/**/*.ts"
   ]
 }
