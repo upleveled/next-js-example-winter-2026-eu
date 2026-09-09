@@ -61,6 +61,13 @@ jobs:
           path: playwright/test-results/
           retention-days: 30
 
+  docker:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build --tag next-js-example-winter-2026-eu .
+
   cd:
     name: Deploy to Fly.io
     runs-on: ubuntu-latest

@@ -1,12 +1,11 @@
 FROM node:lts-alpine AS builder
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
-WORKDIR /app
+WORKDIR /
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 # Install pnpm
-COPY package.json ./
-WORKDIR /
+COPY package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
@@ -23,11 +22,10 @@ FROM node:lts-alpine AS runner
 ENV NODE_ENV production
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
-WORKDIR /app
+WORKDIR /
 # Install necessary tools
 RUN apk add bash postgresql
-COPY --from=builder /app/package.json ./
-WORKDIR /
+COPY --from=builder /app/package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
