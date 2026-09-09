@@ -11,5 +11,3 @@ minimumReleaseAgeExclude:
   - '@upleveled/*'
   - eslint-config-upleveled
   - stylelint-config-upleveled
-
-strictDepBuilds: true
