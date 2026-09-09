@@ -1,6 +1,9 @@
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+allowBuilds:
+  '@parcel/watcher': true
+  bcrypt: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: false
 
 minimumReleaseAge: 10080
 
@@ -8,11 +11,3 @@ minimumReleaseAgeExclude:
   - '@upleveled/*'
   - eslint-config-upleveled
   - stylelint-config-upleveled
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - bcrypt
-  - esbuild
-  - unrs-resolver
-
-strictDepBuilds: true

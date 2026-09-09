@@ -1,8 +1,14 @@
 FROM node:lts-alpine AS builder
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+WORKDIR /
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+COPY package.json /app/
+RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
+    "$(node --input-type=module --eval \
+      'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
 WORKDIR /app
 # Copy the content of the project to the machine
 COPY . .
@@ -14,9 +20,15 @@ RUN pnpm build
 # Multi-stage builds: runner stage
 FROM node:lts-alpine AS runner
 ENV NODE_ENV production
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+WORKDIR /
 # Install necessary tools
 RUN apk add bash postgresql
-RUN corepack enable && corepack prepare pnpm@latest --activate
+COPY --from=builder /app/package.json /app/
+RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
+    "$(node --input-type=module --eval \
+      'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
 WORKDIR /app
 
 # Copy built app
@@ -26,7 +38,6 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/migrations ./migrations
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
 COPY --from=builder /app/next.config.ts ./
 
 # Copy start script and make it executable
