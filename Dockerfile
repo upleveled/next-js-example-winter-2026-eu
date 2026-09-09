@@ -6,10 +6,11 @@ WORKDIR /app
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 # Install pnpm
 COPY package.json ./
-RUN cd / \
-  && ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
+WORKDIR /
+RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+WORKDIR /app
 # Copy the content of the project to the machine
 COPY . .
 # Edit devDependencies to remove packages not needed in production
@@ -26,10 +27,11 @@ WORKDIR /app
 # Install necessary tools
 RUN apk add bash postgresql
 COPY --from=builder /app/package.json ./
-RUN cd / \
-  && ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
+WORKDIR /
+RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+WORKDIR /app
 
 # Copy built app
 COPY --from=builder /app/.next ./.next
