@@ -8,13 +8,12 @@ WORKDIR /
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 
 # Install pnpm
+COPY package.json /app/
 ENV PNPM_HOME=/pnpm
 ENV PATH="$PNPM_HOME/bin:$PATH"
-
-COPY package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
-    "$(node --input-type=module --eval \
-      'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+  "$(node --input-type=module --eval \
+    'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
 
 WORKDIR /app
 
@@ -38,13 +37,12 @@ WORKDIR /
 RUN apk add bash postgresql
 
 # Install pnpm
+COPY --from=builder /app/package.json /app/
 ENV PNPM_HOME=/pnpm
 ENV PATH="$PNPM_HOME/bin:$PATH"
-
-COPY --from=builder /app/package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
-    "$(node --input-type=module --eval \
-      'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+  "$(node --input-type=module --eval \
+    'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
 
 WORKDIR /app
 
