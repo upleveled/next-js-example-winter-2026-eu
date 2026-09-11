@@ -1,15 +1,21 @@
 FROM node:lts-alpine AS builder
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME/bin:$PATH"
+
 WORKDIR /
+
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+
 # Install pnpm
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
 COPY package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+
 WORKDIR /app
+
 # Copy the content of the project to the machine
 COPY . .
 # Edit devDependencies to remove packages not needed in production
@@ -19,16 +25,23 @@ RUN pnpm build
 
 # Multi-stage builds: runner stage
 FROM node:lts-alpine AS runner
+
 ENV NODE_ENV production
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME/bin:$PATH"
+
 WORKDIR /
+
 # Install necessary tools
 RUN apk add bash postgresql
+
+# Install pnpm
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
 COPY --from=builder /app/package.json /app/
 RUN ENV="$HOME/.shrc" SHELL=/bin/sh npx --yes get-pnpm \
     "$(node --input-type=module --eval \
       'console.log((await import("/app/package.json", { with: { type: "json" } })).default.devEngines.packageManager.version)')"
+
 WORKDIR /app
 
 # Copy built app
