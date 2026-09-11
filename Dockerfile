@@ -1,5 +1,7 @@
 FROM node:lts-alpine AS builder
 
+# Prevent npx get-pnpm EBADDEVENGINES failure from
+# devEngines.packageManager in /app/package.json
 WORKDIR /
 
 # Install necessary tools
@@ -28,6 +30,8 @@ FROM node:lts-alpine AS runner
 
 ENV NODE_ENV production
 
+# Prevent npx get-pnpm EBADDEVENGINES failure from
+# devEngines.packageManager in /app/package.json
 WORKDIR /
 
 # Install necessary tools
