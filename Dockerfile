@@ -26,7 +26,6 @@ RUN pnpm build
 
 # Multi-stage builds: runner stage
 FROM node:lts-alpine AS runner
-
 ENV NODE_ENV=production
 
 # Prevent npx get-pnpm EBADDEVENGINES failure from
