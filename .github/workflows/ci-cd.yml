@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo -u postgres createdb --owner=$PGUSERNAME $PGDATABASE
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       # Use the official setup-node action (sets up Node.js):
       # https://github.com/actions/setup-node
