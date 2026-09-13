@@ -7,7 +7,8 @@ WORKDIR /
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 
-# Install pnpm
+# Install pnpm on Alpine Linux using get-pnpm
+# https://github.com/pnpm/pnpm/issues/784#issuecomment-1518582235
 COPY package.json /app/
 ENV PNPM_HOME=/pnpm
 ENV PATH="$PNPM_HOME/bin:$PATH"
@@ -35,7 +36,8 @@ WORKDIR /
 # Install necessary tools
 RUN apk add bash postgresql
 
-# Install pnpm
+# Install pnpm on Alpine Linux using get-pnpm
+# https://github.com/pnpm/pnpm/issues/784#issuecomment-1518582235
 COPY --from=builder /app/package.json /app/
 ENV PNPM_HOME=/pnpm
 ENV PATH="$PNPM_HOME/bin:$PATH"
